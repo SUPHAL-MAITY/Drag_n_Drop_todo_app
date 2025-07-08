@@ -8,6 +8,7 @@ import {
   useSensor,
   useSensors,
   PointerSensor,
+  TouchSensor
 } from "@dnd-kit/core";
 import DroppableContainer from "./component/DroppableContainer";
 import type { DragEndEvent } from "@dnd-kit/core";
@@ -31,7 +32,12 @@ type Todo={
 
 
 function Todolsit() {
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(useSensor(PointerSensor),useSensor(TouchSensor,{
+  activationConstraint: {
+    delay: 250,
+    tolerance: 5,
+  },
+}) );
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos") || "[]"));
 
  
