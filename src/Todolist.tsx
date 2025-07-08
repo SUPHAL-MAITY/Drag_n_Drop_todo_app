@@ -32,12 +32,13 @@ type Todo={
 
 
 function Todolsit() {
-  const sensors = useSensors(useSensor(PointerSensor),useSensor(TouchSensor,{
-  activationConstraint: {
-    delay: 250,
-    tolerance: 5,
-  },
-}) );
+    const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }), // For mouse
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200, tolerance: 5 },
+    }) // For touch
+  );
+  
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos") || "[]"));
 
  
