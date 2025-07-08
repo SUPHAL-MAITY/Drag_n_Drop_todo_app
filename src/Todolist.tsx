@@ -64,10 +64,10 @@ function Todolsit() {
             <Input />
           </div>
 
-          <div className=" flex jsutify-center item-stretch w-full h-full font-serif">
+          <div className="flex flex-col [@media(min-width:400px)]:flex-row  justify-center items-stretch w-full h-full font-serif">
             {/* not completed todos */}
             <DroppableContainer id="incomplete" title="Have to finish">
-              <div className=" w-1/2 ">
+              <div className=" w-3/4 [@media(min-width:400px)]:w-1/2 ">
                 {todos
                   .filter((todo) => !todo.completed)
                   .map((todo) => (
@@ -79,7 +79,7 @@ function Todolsit() {
 
             {/* completed todos */}
             <DroppableContainer id="completed" title="Completed">
-              <div className=" w-1/2 ">
+              <div className=" w-3/4 [@media(min-width:400px)]:w-1/2 ">
                 {todos
                   .filter((todo) => todo.completed)
                   .map((todo) => (
