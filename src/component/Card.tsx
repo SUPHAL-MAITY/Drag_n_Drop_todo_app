@@ -6,7 +6,7 @@ type CardProps={
 }
 
 const Card = ({title,id}:CardProps) => {
-const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
+const { attributes, listeners, setNodeRef, transform,isDragging } = useDraggable({ id });
 
 
 const style = {
@@ -29,7 +29,10 @@ const style = {
         cursor: "grab",  
         boxShadow: "0 2px 4px rgba(0,0,0,0.1)",  
         display:"flex",
-        justifyContent:"center"
+        justifyContent:"center",
+        touchAction: 'manipulation', 
+        userSelect: "none",
+        zIndex: isDragging ? 1000 : "auto",
       }}
       >
         <h1 className="font-serif">{title}</h1>
