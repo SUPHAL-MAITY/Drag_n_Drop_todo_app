@@ -1,7 +1,7 @@
 import "./App.css";
 import Card from "./component/Card";
 import Input from "./component/Input";
-import  { useState } from "react";
+import  {  useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -12,40 +12,70 @@ import {
 import DroppableContainer from "./component/DroppableContainer";
 import type { DragEndEvent } from "@dnd-kit/core";
 
-const todoList = [
-  { id: 1, todo: "play game", completed: false },
-  { id: 2, todo: "create game", completed: true },
-  { id: 3, todo: "complete project 1", completed: true },
-  { id: 4, todo: "play Gta", completed: false },
-  { id: 5, todo: "play game", completed: true },
-];
+// const todoList = [
+//   { id: 1, todo: "play game", completed: false },
+//   { id: 2, todo: "create game", completed: true },
+//   { id: 3, todo: "complete project 1", completed: true },
+//   { id: 4, todo: "play Gta", completed: false },
+//   { id: 5, todo: "play game", completed: true },
+// ];
+
+
+type Todo={
+    id:number;
+    todo:string;
+    completed:boolean;
+}
+
+
+
 
 function Todolsit() {
   const sensors = useSensors(useSensor(PointerSensor));
-  const [todos, setTodos] = useState(todoList);
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos") || "[]"));
 
-
+ 
 
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) return;
 
-    const draggedTodo = todos.find((t) => t.id === active.id);
+    const draggedTodo = todos.find((t:Todo) => t.id === active.id);
     const overContainer = over.id;
 
     if (
       (overContainer === "completed" && !draggedTodo?.completed) ||
       (overContainer === "incomplete" && draggedTodo?.completed)
     ) {
-      setTodos((prev) =>
-        prev.map((t) =>
+      setTodos((prev:Todo[]) =>{
+        const updated= prev.map((t) =>
           t.id === active.id ? { ...t, completed: !t.completed } : t
         )
+        localStorage.setItem("todos",JSON.stringify(updated))
+        return updated;
+
+      }
+       
       );
+     
     }
   };
 
+
+  const handleAddTodo=(todo:string)=>{
+    const newTodo={
+        todo,
+        completed:false,
+        id:Math.ceil(Math.random() * 100),
+    }
+    const updatedTodos=[...todos,newTodo]
+    setTodos(updatedTodos)
+    
+    localStorage.setItem("todos",JSON.stringify(updatedTodos))
+
+    
+  }
 
 
   return (
@@ -61,7 +91,7 @@ function Todolsit() {
           </h1>
 
           <div className="">
-            <Input />
+            <Input  onAdd={handleAddTodo} />
           </div>
 
           <div className="flex flex-col [@media(min-width:400px)]:flex-row  justify-center items-stretch w-full h-full font-serif">
@@ -69,8 +99,8 @@ function Todolsit() {
             <DroppableContainer id="incomplete" title="Have to finish">
               <div className=" w-3/4 [@media(min-width:400px)]:w-1/2 ">
                 {todos
-                  .filter((todo) => !todo.completed)
-                  .map((todo) => (
+                  .filter((todo:Todo) => !todo.completed)
+                  .map((todo:Todo) => (
                     <Card key={todo.id} title={todo.todo} id={todo.id} />
                   ))}
               </div>
@@ -81,8 +111,8 @@ function Todolsit() {
             <DroppableContainer id="completed" title="Completed">
               <div className=" w-3/4 [@media(min-width:400px)]:w-1/2 ">
                 {todos
-                  .filter((todo) => todo.completed)
-                  .map((todo) => (
+                  .filter((todo:Todo) => todo.completed)
+                  .map((todo:Todo) => (
                     <Card key={todo.id} title={todo.todo} id={todo.id} />
                   ))}
               </div>
