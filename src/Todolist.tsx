@@ -76,7 +76,12 @@ function Todolsit() {
 
     
   }
+ 
 
+  const handleReset=()=>{
+    localStorage.removeItem("todos")
+    window.location.reload()
+  }
 
   return (
     <>
@@ -89,6 +94,8 @@ function Todolsit() {
           <h1 className="flex  text-3xl text-red-700 font-serif mt-4">
             ToDo List{" "}
           </h1>
+
+          <div className="absolute right-[2px] top-[8px] "><button className="border border-red-300 p-2 bg-red-500 rounded-lg" onClick={handleReset}>Reset</button></div>
 
           <div className="">
             <Input  onAdd={handleAddTodo} />

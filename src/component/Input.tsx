@@ -17,6 +17,7 @@ const Input = ({onAdd}:InputProp) => {
         console.log("submit button clicked")
         if(!input?.trim())  return;
         onAdd(input)
+        setInput("")
 
     }
 
