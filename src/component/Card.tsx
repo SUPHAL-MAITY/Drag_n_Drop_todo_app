@@ -2,10 +2,11 @@ import { useDraggable } from "@dnd-kit/core"
 
 type CardProps={
     title:string;
-    id:number
+    id:number;
+    completed:boolean
 }
 
-const Card = ({title,id}:CardProps) => {
+const Card = ({title,id,completed}:CardProps) => {
 const { attributes, listeners, setNodeRef, transform,isDragging } = useDraggable({ id });
 
 
@@ -35,7 +36,7 @@ const style = {
         zIndex: isDragging ? 1000 : "auto",
       }}
       >
-        <h1 className="font-serif">{title}</h1>
+        <h1 className="font-serif">{title} {completed ? "✅" : "❌"} </h1>
       </div>
       
     </>

@@ -127,7 +127,7 @@ function Todolsit() {
                 {todos
                   .filter((todo:Todo) => todo.completed)
                   .map((todo:Todo) => (
-                    <Card key={todo.id} title={todo.todo} id={todo.id} />
+                    <Card key={todo.id} title={todo.todo} completed={todo.completed} id={todo.id} />
                   ))}
               </div>
             </DroppableContainer>
