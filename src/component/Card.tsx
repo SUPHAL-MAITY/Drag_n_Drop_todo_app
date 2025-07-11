@@ -30,7 +30,7 @@ const style = {
         boxShadow: "0 2px 4px rgba(0,0,0,0.1)",  
         display:"flex",
         justifyContent:"center",
-        touchAction: 'manipulation', 
+        touchAction: "none", 
         userSelect: "none",
         zIndex: isDragging ? 1000 : "auto",
       }}
